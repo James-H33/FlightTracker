@@ -1,0 +1,115 @@
+* {
+  padding: 0;
+  margin: 0; }
+
+body {
+  font-family: Roboto, sans-serif; }
+
+#app {
+  display: grid;
+  grid-template-columns: auto 1fr; }
+
+.content {
+  padding: 20px;
+  padding-top: 80px; }
+
+.nav-link {
+  color: #000;
+  text-decoration: none; }
+  .nav-link:hover {
+    text-decoration: underline; }
+  .nav-link.active {
+    text-decoration: underline; }
+
+.nav-link.white {
+  color: #fff; }
+
+.input-search {
+  margin: 20px 0; }
+
+.input-container {
+  position: relative; }
+  .input-container input {
+    width: calc(100% - 42px);
+    height: 60px;
+    padding: 0 20px;
+    font-size: 18px;
+    color: #aaa;
+    font-weight: 800;
+    outline: none;
+    border: 1px solid #DFDFDF; }
+    .input-container input::placeholder {
+      color: #afafaf; }
+  .input-container .input-search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #DFDFDF; }
+  .input-container .input-search-results-item {
+    color: #666666;
+    font-size: 18px;
+    font-weight: 800;
+    padding: 20px;
+    cursor: pointer; }
+    .input-container .input-search-results-item.has-results .input-search-results {
+      border-bottom: none; }
+    .input-container .input-search-results-item:hover {
+      background: #FFF6F6; }
+
+.flight-info-card {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: 50px repeat(3, 1fr);
+  grid-template-areas: 'Image FlightNumber Airline FromTo' 'Image FlightNumber Status FromTo';
+  border: 1px solid #DFDFDF;
+  padding: 20px; }
+  .flight-info-card .image {
+    grid-area: Image;
+    width: 50px;
+    grid-column: auto; }
+    .flight-info-card .image img {
+      width: 100%; }
+  .flight-info-card .status {
+    grid-area: Status;
+    color: green; }
+  .flight-info-card .flight-number {
+    grid-area: FlightNumber; }
+  .flight-info-card .airline {
+    grid-area: Airline; }
+  .flight-info-card .from-to {
+    grid-area: FromTo;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-column-gap: 15px;
+    justify-self: center;
+    justify-items: center;
+    max-width: 200px;
+    text-align: center; }
+    .flight-info-card .from-to .from {
+      display: grid;
+      grid-row-gap: 8px; }
+    .flight-info-card .from-to .to {
+      display: grid;
+      grid-row-gap: 8px; }
+
+.side-nav {
+  width: 250px;
+  height: 100vh;
+  background: #333;
+  padding: 20px; }
+  .side-nav h2 {
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 60px; }
+  .side-nav .side-nav-links {
+    padding: 20px 0;
+    margin-top: 20px; }
+
+.airport-page {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto; }

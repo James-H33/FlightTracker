@@ -1,0 +1,25 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: Roboto, sans-serif;
+}
+
+#app {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.content {
+    padding: 20px;
+    padding-top: 80px;
+}
+
+
+@import './atoms/index';
+@import './molecules/index';
+@import './organisms/index';
+@import './pages/index';
+

@@ -1,0 +1,27 @@
+
+<div class="input-search">
+    <div class="input-container">
+        <input type="text" placeholder="Search">
+        <div class="@resultsClass">
+            @foreach (var item in results)
+            {
+                <div class="input-search-results-item">@item</div>
+            }
+        </div>
+    </div>
+</div>
+
+@code 
+{
+    public List<string> results = new List<string>();
+
+    public string resultsClass => results.Count > 0 ? "input-search-results has-results" : "input-search-results";
+
+    protected override void OnInitialized() 
+    {
+        results = new List<string> {
+            "Prince George", 
+            "Vancouver"
+        };
+    }
+}
