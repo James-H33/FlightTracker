@@ -2,15 +2,15 @@
 
 <div class="airport-page">
     <h2>By Airport</h2>
-    <InputSearch /> 
+    <InputSearch OnSelection="@OnAirportSelected" /> 
     <FlightInfoCard />        
-    <FlightInfoCard />        
-    <FlightInfoCard />        
-    <FlightInfoCard />    
 </div>
-    
 
 @code 
 {
-
+    public void OnAirportSelected(string airportId)
+    {
+        // Get Arrivals
+        Console.WriteLine(airportId);
+    }
 }

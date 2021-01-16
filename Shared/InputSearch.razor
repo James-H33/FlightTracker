@@ -1,11 +1,35 @@
+@using System.Linq
+@using FlightTracker.Services.Interfaces
+@using System.Timers
+@using FlightTracker.Models
+
+@inject IAirportService AiportService
 
 <div class="input-search">
+    <div class="input-search-overlay @IsOverlayActiveClass"></div>
     <div class="input-container">
-        <input type="text" placeholder="Search">
-        <div class="@resultsClass">
-            @foreach (var item in results)
+        
+        <input type="text" value="@SearchText" 
+            @oninput="@SearchTextChange"
+            @onfocusout="@(() => IsUserFocusedOnInput = false)" 
+            @onfocus="@(() => IsUserFocusedOnInput = true)" 
+            placeholder="Search">
+
+        <div class="input-search-results @ResultsClass" 
+            @onmouseout="@(() => IsUserLookingAtResults = false)"
+            @onmouseover="@(() => IsUserLookingAtResults = true)">
+            @if (Results.Count > 0) 
             {
-                <div class="input-search-results-item">@item</div>
+                @foreach (var item in Results)
+                {
+                    <div class="input-search-results-item" @onclick="@(() => Selected(item))">
+                        @item.Value
+                    </div>
+                }
+            }
+            else 
+            {
+                <div class="input-search-results-item">No results found.</div>
             }
         </div>
     </div>
@@ -13,15 +37,70 @@
 
 @code 
 {
-    public List<string> results = new List<string>();
+    [Parameter]
+    public EventCallback<string> OnSelection { get; set; }
 
-    public string resultsClass => results.Count > 0 ? "input-search-results has-results" : "input-search-results";
+    public string SearchText { get; set; } = "";
 
-    protected override void OnInitialized() 
+    public bool IsSearchComplete { get; set; } = false;
+
+    public bool IsUserFocusedOnInput { get; set; } = false;
+
+    public bool UserHasChangeSearchText { get; set; } = false;
+
+    public bool IsUserLookingAtResults { get; set; } = false;
+    
+    public List<KeyValue> Results = new List<KeyValue>();
+
+    public string IsOverlayActiveClass => IsSearchComplete && IsUserFocusedOnInput && UserHasChangeSearchText || IsUserLookingAtResults ? "active" : "";
+
+    public string ResultsClass => IsSearchComplete && IsUserFocusedOnInput && UserHasChangeSearchText || IsUserLookingAtResults ? "has-results" : "";
+
+    private Timer searchTimer;
+
+    public void Selected(KeyValue item) 
     {
-        results = new List<string> {
-            "Prince George", 
-            "Vancouver"
-        };
+        Results = new List<KeyValue>();
+        SearchText = item.Value;
+        UserHasChangeSearchText = false;
+        IsUserLookingAtResults = false;
+        OnSelection.InvokeAsync(item.Key);
+        StateHasChanged();
+    }
+
+    public void SearchTextChange(ChangeEventArgs args) 
+    {
+        var newText = args.Value.ToString();
+
+        if (searchTimer != null) 
+        {
+            searchTimer.Dispose();
+        }
+
+        if (newText != SearchText) 
+        {
+            UserHasChangeSearchText = true;
+            SearchText = newText;
+            StartTimer();
+        } else {
+            UserHasChangeSearchText = false;
+        }
+    }
+
+    private async void SearchForAirports(Object source, ElapsedEventArgs e) 
+    {
+        IsSearchComplete = false;
+        var results = await AiportService.GetAirports(SearchText);
+        Results = results.Select(x => new KeyValue { Key = x.Id, Value = x.Name }).Take(8).ToList();
+        IsSearchComplete = true;
+        StateHasChanged();
+    }
+
+    private void StartTimer()
+    {
+        searchTimer = new Timer(500);
+        searchTimer.Elapsed += SearchForAirports;
+        searchTimer.AutoReset = false;
+        searchTimer.Start();
     }
 }

@@ -27,6 +27,18 @@ body {
 .input-search {
   margin: 20px 0; }
 
+.input-search-overlay {
+  position: absolute;
+  background: white;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.9;
+  display: none; }
+  .input-search-overlay.active {
+    display: initial; }
+
 .input-container {
   position: relative; }
   .input-container input {
@@ -46,15 +58,17 @@ body {
     left: 0;
     right: 0;
     background: #fff;
-    border: 1px solid #DFDFDF; }
+    border: 1px solid #DFDFDF;
+    display: none; }
+    .input-container .input-search-results.has-results {
+      display: initial;
+      border-top: none; }
   .input-container .input-search-results-item {
     color: #666666;
     font-size: 18px;
     font-weight: 800;
     padding: 20px;
     cursor: pointer; }
-    .input-container .input-search-results-item.has-results .input-search-results {
-      border-bottom: none; }
     .input-container .input-search-results-item:hover {
       background: #FFF6F6; }
 
@@ -99,7 +113,8 @@ body {
   width: 250px;
   height: 100vh;
   background: #333;
-  padding: 20px; }
+  padding: 20px;
+  z-index: 1; }
   .side-nav h2 {
     color: #fff;
     text-align: center;
@@ -113,3 +128,5 @@ body {
   width: 100%;
   max-width: 900px;
   margin: 0 auto; }
+  .airport-page h2 {
+    color: #666666; }
