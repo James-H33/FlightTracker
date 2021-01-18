@@ -72,6 +72,24 @@ body {
     .input-container .input-search-results-item:hover {
       background: #FFF6F6; }
 
+.tab-set-container {
+  margin: 10px 0; }
+  .tab-set-container ul {
+    display: inline-flex;
+    list-style: none;
+    border-bottom: 1px solid #DFDFDF; }
+    .tab-set-container ul li {
+      color: #666666;
+      font-weight: bold;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      border: 1px solid transparent;
+      cursor: pointer; }
+      .tab-set-container ul li.active {
+        border: 1px solid #DFDFDF; }
+  .tab-set-container .tab {
+    padding: 12px 25px; }
+
 .flight-info-card {
   display: grid;
   align-items: center;

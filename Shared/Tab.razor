@@ -1,0 +1,24 @@
+
+<li @onclick="@Activate" class="tab @TitleCssClass"> 
+    @Title
+</li>
+
+@code
+{
+    [CascadingParameter] 
+    public TabSet ContainerTabSet { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter] 
+    public RenderFragment ChildContent { get; set; }
+
+    public string TitleCssClass => ContainerTabSet.ActiveTab == this ? "active" : null;
+
+    
+    public void Activate()
+    {
+        ContainerTabSet.SetActivateTab(this);
+    }
+}

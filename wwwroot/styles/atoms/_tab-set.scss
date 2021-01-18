@@ -1,0 +1,26 @@
+.tab-set-container {
+    margin: 10px 0;
+
+    ul {
+        display: inline-flex;
+        list-style: none;
+        border-bottom: 1px solid #DFDFDF;
+
+        li {
+            color: #666666;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border: 1px solid transparent;
+            cursor: pointer;
+
+            &.active {
+                border: 1px solid #DFDFDF;
+            }
+        }
+    }
+
+    .tab {
+        padding: 12px 25px;
+    }
+}

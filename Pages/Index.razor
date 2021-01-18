@@ -1,5 +1,30 @@
 ﻿@page "/"
+@using System.Collections.Generic
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
+
+<TabSet @ref="tabSetRef">
+    <Tab @ref="firstTab" Title="Arrivals">
+        <div>Hello Arrivals!</div>
+    </Tab>
+
+     <Tab Title="Departures">
+        <div>Hello Departures!</div>
+    </Tab>
+</TabSet> 
+
+@code 
+{
+    private Tab firstTab;
+    private TabSet tabSetRef;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) 
+        {
+            tabSetRef.SetActivateTab(firstTab);
+        }
+    }
+}

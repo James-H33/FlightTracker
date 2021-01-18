@@ -1,0 +1,28 @@
+@using FlightTracker.Shared
+
+<div class="tab-set-container">
+    <CascadingValue Value="this">
+        <ul class="tab-set">
+            @ChildContent
+        </ul>
+    </CascadingValue>
+
+    <div class="tab-set-content">
+        @ActiveTab?.ChildContent
+    </div>
+</div>
+
+@code 
+{
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    public Tab ActiveTab { get; set; } = null;
+
+    public void SetActivateTab(Tab tab) 
+    {
+        Console.WriteLine(tab);
+        ActiveTab = tab;
+        StateHasChanged();
+    }
+}

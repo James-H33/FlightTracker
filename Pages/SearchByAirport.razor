@@ -1,16 +1,67 @@
 @page "/airport"
+@inject NavigationManager NavigationManager
 
 <div class="airport-page">
     <h2>By Airport</h2>
     <InputSearch OnSelection="@OnAirportSelected" /> 
-    <FlightInfoCard />        
+
+    @if (selectedAirportId != null) 
+    {
+        <TabSet @ref="TabSetRef">
+            <Tab @ref="FirstTabRef" Title="Arrivals">
+                @foreach (var arrival in Arrivals)
+                {
+                    <FlightInfoCard />        
+                }
+            </Tab>
+
+            <Tab Title="Departures">
+                @foreach (var depature in Depatures)
+                {
+                    <FlightInfoCard />        
+                }
+            </Tab>
+        </TabSet>
+    }
 </div>
 
 @code 
 {
+
+    public string selectedAirportId { get; set; }
+
+    public List<dynamic> Arrivals { get; set; }
+
+    public List<dynamic> Depatures { get; set; }
+
+    public TabSet TabSetRef;
+
+    public Tab FirstTabRef;
+
     public void OnAirportSelected(string airportId)
     {
-        // Get Arrivals
-        Console.WriteLine(airportId);
+        selectedAirportId = airportId;
+        GetAirportInfo();
+    }
+
+    public void GetAirportInfo()
+    {
+        Arrivals = new List<dynamic> 
+        {
+            "123",
+            "123",
+            "123",
+        };
+
+        Depatures = new List<dynamic> 
+        {
+            "123",
+            "123",
+            "123",
+            "123",
+            "123"
+        };
+
+        TabSetRef.SetActivateTab(FirstTabRef);
     }
 }
